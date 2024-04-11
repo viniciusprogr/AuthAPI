@@ -23,6 +23,8 @@ import lombok.Setter;
 @Setter
 @Table(name = "Usuario")
 public class UsuarioEntity implements UserDetails {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,10 +44,14 @@ public class UsuarioEntity implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		if (this.cargo == cargo.ADMIM) {
-			return List.of(new SimpleGrantedAuthority("CARGO_ADMIM"), new SimpleGrantedAuthority("CARGO_USER"));
+		if (this.cargo == CargoEnum.ADMIN) {
+			return List.of(
+					new SimpleGrantedAuthority("ROLE_ADMIN"),
+					new SimpleGrantedAuthority("ROLE_USER"));
 		}
-		return List.of(new SimpleGrantedAuthority("CARGO_USER"));
+		return List.of(
+				new SimpleGrantedAuthority("ROLE_USER")
+				);
 	}
 
 	@Override

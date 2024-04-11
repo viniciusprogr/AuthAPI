@@ -1,6 +1,7 @@
 package com.cc.login.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,21 +14,30 @@ import com.cc.login.entities.UsuarioEntity;
 import com.cc.login.services.UsuarioService;
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/usuarios")
 public class UsuarioController {
-		
+
 	@Autowired
 	private UsuarioService usuarioService;
+
 	@Autowired
 	private UsuarioConvert usuarioConvert;
-	
-	
+
 	@PostMapping("/cadastrar")
 	public UsuarioOutput cadastrarUsuario(@RequestBody UsuarioInput usuarioInput) {
 		UsuarioEntity usuarioConvertidoParaEntity = usuarioConvert.InputToNewEntity(usuarioInput);
 		UsuarioEntity usuarioCadastrado = usuarioService.cadastrarUsuario(usuarioConvertidoParaEntity);
-		UsuarioOutput usuarioConvertidoParaOutput = usuarioConvert.EntityToOutput(usuarioCadastrado);
-		return  usuarioConvertidoParaOutput;
-	}
+		return usuarioConvert.EntityToOutput(usuarioCadastrado);
 
+	}
+	
+	@GetMapping("/admin")
+	public String testeAdmin() {
+		return new String("Você tem permissão ADMIN");
+	}
+	
+	@GetMapping("/user")
+	public String testeUser() {
+		return new String("Você tem permissão USER");
+	}
 }

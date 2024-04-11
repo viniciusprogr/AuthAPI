@@ -55,7 +55,7 @@ public class AuthService implements UserDetailsService {
 	}
 
 	
-	public String ValidaTokenJwt(String token) {
+	public String validaTokenJwt(String token) {
 		
 		
 		try {

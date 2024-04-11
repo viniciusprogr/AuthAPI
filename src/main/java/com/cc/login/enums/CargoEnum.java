@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public enum CargoEnum {
 	 
-	ADMIM("admim"),
+	ADMIN("admin"),
 	USER("user");
 	
 	private String cargo;
